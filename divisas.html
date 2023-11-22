@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eventos JavaScript</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <p class="m-2 fw-semibold">EVENTOS JAVASCRIPT</p>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end px-2" id="navbarNav">
+          <ul class="navbar-nav fw-semibold">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">CALCULADORA MASA CORPORAL</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">CONVERSIÓN DE DIVISAS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="notas.html">NOTAS</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <!--Form-->
+    <div class="text-center pt-3">
+      <h2>Conversión de divisas</h2>
+    </div>
+
+    <div class="p-3 text-center">
+      <form class="border rounded-4 col-md-6 offset-md-3 p-5 text-white fw-semibold bg-dark">
+        <div class="input-group flex-nowrap my-3">
+          <input type="number" class="form-control text-start" id="pesos">
+          <label for="pesos" class="input-group-text">Pesos</label>
+        </div>
+        <div class="input-group flex-nowrap my-3">
+          <input type="number" class="form-control text-start" id="dolares">
+          <label for="dolares" class="input-group-text">dolares</label>
+        </div>
+        <div class="mt-3">
+          <p>Tasa de conversión: 1 USD = 4050 COP</p>
+        </div>
+      </form>
+    </div>
+
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script src="javaScript/divisas.js"></script>
+</body>
+
+</html>
