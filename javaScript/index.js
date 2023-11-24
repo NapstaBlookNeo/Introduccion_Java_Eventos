@@ -7,7 +7,7 @@ function calcularMasa() {
     let peso = document.getElementById('peso').value
     imc = peso / estatura ** 2;
     let resultado = document.getElementById('resultado');
-    resultado.placeholder ="Índice de masa Corporal: " + imc.toFixed(0);
+    resultado.placeholder ="Indice de masa Corporal: " + imc.toFixed(0);
 }
 
 

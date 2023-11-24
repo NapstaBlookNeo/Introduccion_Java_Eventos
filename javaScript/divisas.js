@@ -16,5 +16,4 @@ function dolaresPesos() {
     let dolares = document.getElementById('dolares').value
     let conversion = document.getElementById('pesos')
     conversion.value = dolares * 4050;
-    console.log(conversion.value);
 }
