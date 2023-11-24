@@ -1,3 +1,7 @@
 .clickeable{
     cursor:pointer;
 }
+
+.descripcionTachada{
+    text-decoration: line-through;
+}
