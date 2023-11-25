@@ -42,6 +42,7 @@ let notas = [
         realizada: false
     }
 ]
+let notasRealizadas = []
 let switchNotasRealizadas = false
 let idGlobal = 8
 
@@ -51,14 +52,15 @@ document.addEventListener('DOMContentLoaded', pintarNotas(notas))
 
 function pintarNotas(notas) {
     tarjetas.innerHTML = ''
-    if (notas.length === 0) {
-        let element = document.createElement("div")
-        element.classList.add("col-12")
-        element.innerHTML =
-            '<h2 class = "text-center text-secondary my-5">No hay elementos para mostrar</h2>'
-        tarjetas.appendChild(element)
+
+    let notasAMostrar = switchNotasRealizadas ? notas.filter(nota => nota.realizada) : notas;
+    if (notasAMostrar.length === 0) {
+        let element = document.createElement("div");
+        element.classList.add("col-12");
+        element.innerHTML = '<h2 class="text-center text-secondary my-5">No hay elementos para mostrar</h2>';
+        tarjetas.appendChild(element);
     } else {
-        //Todas las Notas
+        //Mostrar todas las Notas
         if (switchNotasRealizadas === false) {
             for (let i = 0; i < notas.length; i++) {
                 let card = document.createElement("div")
@@ -75,7 +77,7 @@ function pintarNotas(notas) {
                     </div>`
                 tarjetas.appendChild(card)
             }
-        // Notas Realizadas
+        //Mostrar notas Realizadas
         } else {
             let notasRealizadas = notas.filter(nota => nota.realizada === true);
             for (let i = 0; i < notasRealizadas.length; i++) {
@@ -98,18 +100,23 @@ function pintarNotas(notas) {
 }
 
 //Crear nueva Nota
-let guardar = document.getElementById('guardar')
-guardar.addEventListener('click', crearNota)
+let guardar = document.getElementById('guardar');
+guardar.addEventListener('click', () => {
+    let titulo = document.getElementById('tituloNota').value;
+    let descripcion = document.getElementById('textoNota').value;
 
-function crearNota() {
-    let titulo = document.getElementById('tituloNota').value
-    let descripcion = document.getElementById('textoNota').value
+    if (titulo !== '' && descripcion !== '') {
+        crearNota(titulo, descripcion);
+    }
+});
+
+function crearNota(titulo, descripcion) {
     let nuevaNota = {
         id: idGlobal,
         titulo: titulo,
         descripcion: descripcion,
         realizada: false
-    }
+    };
 
     idGlobal++
     notas.push(nuevaNota)
@@ -149,11 +156,24 @@ function marcarRealizada(id) {
 }
 
 //usar filter para filtrar notas con actividades ya hechas
-
 function mostrarRealizadas() {
     switchNotasRealizadas = !switchNotasRealizadas;
-    console.log(switchNotasRealizadas);
-    pintarNotas(notas);
+    let notasFiltradas = switchNotasRealizadas ? notas.filter(nota => nota.realizada === true) : notas;
+    pintarNotas(notasFiltradas)
 }
 
+//Filtrar por busqueda
+
+let textoBusqueda = document.getElementById('textoBusqueda')
+textoBusqueda.addEventListener('keyup',busqueda)
+
+function busqueda(){
+    let texto = textoBusqueda.value.toLowerCase();
+    let notasFiltradas = notas.filter(nota => {
+        let titulo = nota.titulo.toLowerCase();
+        let descripcion = nota.descripcion.toLowerCase();
+        return titulo.includes(texto) || descripcion.includes(texto);
+    });
+    pintarNotas(notasFiltradas);
+}
 
