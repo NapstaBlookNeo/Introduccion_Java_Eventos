@@ -42,9 +42,9 @@ let notas = [
         realizada: false
     }
 ]
-let notasRealizadas = []
+
 let switchNotasRealizadas = false
-let idGlobal = 8
+let idGlobal = notas.length + 1
 
 //pintar notas
 let tarjetas = document.getElementById("tarjetasNotas")
@@ -56,48 +56,29 @@ function pintarNotas(notas) {
     let notasAMostrar = switchNotasRealizadas ? notas.filter(nota => nota.realizada) : notas;
     if (notasAMostrar.length === 0) {
         let element = document.createElement("div");
-        element.classList.add("col-12");
+        element.classList.add("col-12", "min-vh-50");
         element.innerHTML = '<h2 class="text-center text-secondary my-5">No hay elementos para mostrar</h2>';
         tarjetas.appendChild(element);
     } else {
-        //Mostrar todas las Notas
-        if (switchNotasRealizadas === false) {
-            for (let i = 0; i < notas.length; i++) {
-                let card = document.createElement("div")
-                card.classList.add("card", "col-md-4", "col-lg-3", "my-4", "mx-md-5", "mx-lg-4", "p-0")
-                let descripcionTachada = notas[i].realizada ? 'descripcionTachada' : '';
-                card.innerHTML =
-                    `<div class="card-header d-flex justify-content-between bg-dark-subtle align-items-center w-100" data-id="${notas[i].id}">
-                         <input onClick = "marcarRealizada(${notas[i].id})" type="checkbox" ${notas[i].realizada ? "checked" : ""}> </input>
-                         <h5 class="m-2">${notas[i].titulo}</h5>
-                         <a class="bi bi-trash3 text-danger clickeable" onClick = "eliminarNota(${notas[i].id})"></a>
-                     </div>
-                     <div class="card-body">
-                        <p class="card-text ${descripcionTachada}">${notas[i].descripcion}</p>
-                    </div>`
-                tarjetas.appendChild(card)
-            }
-        //Mostrar notas Realizadas
-        } else {
-            let notasRealizadas = notas.filter(nota => nota.realizada === true);
-            for (let i = 0; i < notasRealizadas.length; i++) {
-                let card = document.createElement("div")
-                card.classList.add("card", "col-md-4", "col-lg-3", "my-4", "mx-md-5", "mx-lg-4", "p-0")
-                let descripcionTachada = notasRealizadas[i].realizada ? 'descripcionTachada' : '';
-                card.innerHTML =
-                    `<div class="card-header d-flex justify-content-between bg-dark-subtle align-items-center w-100" data-id="${notasRealizadas[i].id}">
-                         <input onClick = "marcarRealizada(${notasRealizadas[i].id})" type="checkbox" ${notasRealizadas[i].realizada ? "checked" : ""}> </input>
-                         <h5 class="m-2">${notasRealizadas[i].titulo}</h5>
-                         <a class="bi bi-trash3 text-danger clickeable" onClick = "eliminarNota(${notasRealizadas[i].id})"></a>
-                     </div>
-                     <div class="card-body">
-                        <p class="card-text ${descripcionTachada}">${notasRealizadas[i].descripcion}</p>
-                    </div>`
-                tarjetas.appendChild(card)
-            }
+        for (let i = 0; i < notasAMostrar.length; i++) {
+            let card = document.createElement("div");
+            card.classList.add("card", "col-md-4", "col-lg-3", "my-4", "mx-md-5", "mx-lg-4", "p-0");
+            let descripcionTachada = notasAMostrar[i].realizada ? 'text-decoration-line-through' : '';
+            card.innerHTML = `
+                <div class="card-header d-flex justify-content-between bg-dark-subtle align-items-center w-100" data-id="${notasAMostrar[i].id}">
+                    <input onClick="marcarRealizada(${notasAMostrar[i].id})" type="checkbox" ${notasAMostrar[i].realizada ? "checked" : ""}>
+                    </input>
+                    <h5 class="m-2">${notasAMostrar[i].titulo}</h5>
+                    <a class="bi bi-trash3 text-danger clickeable" onClick="eliminarNota(${notasAMostrar[i].id})"></a>
+                </div>
+                <div class="card-body">
+                    <p class="card-text ${descripcionTachada}">${notasAMostrar[i].descripcion}</p>
+                </div>`;
+            tarjetas.appendChild(card);
         }
     }
 }
+
 
 //Crear nueva Nota
 let guardar = document.getElementById('guardar');
@@ -144,30 +125,26 @@ function eliminarNota(id) {
 //"Realizar" Nota
 function marcarRealizada(id) {
     for (let i = 0; i < notas.length; i++) {
-        if (notas[i].id == id) {
-            if (notas[i].realizada === false) {
-                notas[i].realizada = true
-            } else {
-                notas[i].realizada = false
-            }
+        if (notas[i].id === id) {
+            notas[i].realizada = !notas[i].realizada;
+            break;
         }
     }
-    pintarNotas(notas)
+    pintarNotas(notas);
 }
 
 //usar filter para filtrar notas con actividades ya hechas
 function mostrarRealizadas() {
     switchNotasRealizadas = !switchNotasRealizadas;
-    let notasFiltradas = switchNotasRealizadas ? notas.filter(nota => nota.realizada === true) : notas;
-    pintarNotas(notasFiltradas)
+    pintarNotas(notas)
 }
 
 //Filtrar por busqueda
 
 let textoBusqueda = document.getElementById('textoBusqueda')
-textoBusqueda.addEventListener('keyup',busqueda)
+textoBusqueda.addEventListener('keyup', busqueda)
 
-function busqueda(){
+function busqueda() {
     let texto = textoBusqueda.value.toLowerCase();
     let notasFiltradas = notas.filter(nota => {
         let titulo = nota.titulo.toLowerCase();
