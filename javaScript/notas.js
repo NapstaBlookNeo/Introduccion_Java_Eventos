@@ -54,6 +54,7 @@ function pintarNotas(notas) {
     tarjetas.innerHTML = ''
 
     let notasAMostrar = switchNotasRealizadas ? notas.filter(nota => nota.realizada) : notas;
+    console.log(notasAMostrar);
     if (notasAMostrar.length === 0) {
         let element = document.createElement("div");
         element.classList.add("col-12", "min-vh-50");
@@ -83,8 +84,8 @@ function pintarNotas(notas) {
 //Crear nueva Nota
 let guardar = document.getElementById('guardar');
 guardar.addEventListener('click', () => {
-    let titulo = document.getElementById('tituloNota').value;
-    let descripcion = document.getElementById('textoNota').value;
+    let titulo = document.getElementById('tituloNota').value.trim();
+    let descripcion = document.getElementById('textoNota').value.trim();
 
     if (titulo !== '' && descripcion !== '') {
         crearNota(titulo, descripcion);
@@ -101,17 +102,20 @@ function crearNota(titulo, descripcion) {
 
     idGlobal++
     notas.push(nuevaNota)
+    funcionBorrarTexto()
     pintarNotas(notas)
 }
 
-//Borrar texto
+//Borrar texto de creación de nota
 let borrarTexto = document.getElementById('borrar')
-borrarTexto.addEventListener('click', e => {
+borrarTexto.addEventListener('click', funcionBorrarTexto)
+
+function funcionBorrarTexto(){
     let titulo = document.getElementById('tituloNota')
     let descripcion = document.getElementById('textoNota')
     titulo.value = ""
     descripcion.value = ""
-})
+}
 
 //Eliminar Nota
 function eliminarNota(id) {
@@ -145,7 +149,7 @@ let textoBusqueda = document.getElementById('textoBusqueda')
 textoBusqueda.addEventListener('keyup', busqueda)
 
 function busqueda() {
-    let texto = textoBusqueda.value.toLowerCase();
+    let texto = textoBusqueda.value.trim().toLowerCase();
     let notasFiltradas = notas.filter(nota => {
         let titulo = nota.titulo.toLowerCase();
         let descripcion = nota.descripcion.toLowerCase();
