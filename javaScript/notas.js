@@ -86,7 +86,7 @@ let guardar = document.getElementById('guardar');
 guardar.addEventListener('click', () => {
     let titulo = document.getElementById('tituloNota').value.trim();
     let descripcion = document.getElementById('textoNota').value.trim();
-
+    funcionBorrarTexto()
     if (titulo !== '' && descripcion !== '') {
         crearNota(titulo, descripcion);
     }
@@ -109,7 +109,6 @@ function crearNota(titulo, descripcion) {
 //Borrar texto de creación de nota
 let borrarTexto = document.getElementById('borrar')
 borrarTexto.addEventListener('click', funcionBorrarTexto)
-
 function funcionBorrarTexto(){
     let titulo = document.getElementById('tituloNota')
     let descripcion = document.getElementById('textoNota')
