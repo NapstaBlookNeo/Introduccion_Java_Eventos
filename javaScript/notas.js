@@ -67,7 +67,7 @@ function pintarNotas(notas) {
             let descripcionTachada = notasAMostrar[i].realizada ? 'text-decoration-line-through' : '';
             card.innerHTML = `
                 <div class="card-header d-flex justify-content-between bg-dark-subtle align-items-center w-100" data-id="${notasAMostrar[i].id}">
-                    <input onClick="marcarRealizada(${notasAMostrar[i].id})" type="checkbox" ${notasAMostrar[i].realizada ? "checked" : ""}>
+                    <input class = "clickeable"  onClick="marcarRealizada(${notasAMostrar[i].id})" type="checkbox" ${notasAMostrar[i].realizada ? "checked" : ""}>
                     </input>
                     <h5 class="m-2">${notasAMostrar[i].titulo}</h5>
                     <a class="bi bi-trash3 text-danger clickeable" onClick="eliminarNota(${notasAMostrar[i].id})"></a>
